@@ -35,14 +35,23 @@
       [...node.childNodes].forEach((child) => {
         if (child.nodeType === 3) {
           const frag = document.createDocumentFragment();
-          [...child.textContent].forEach((ch) => {
-            if (ch === ' ' || ch === '\n' || ch === '\t') {
-              frag.appendChild(document.createTextNode(ch));
+          // Split by words to prevent mid-word line breaks
+          const words = child.textContent.split(/(\s+)/);
+          words.forEach((word) => {
+            if (/^\s+$/.test(word) || word === '') {
+              frag.appendChild(document.createTextNode(word));
             } else {
-              const s = document.createElement('span');
-              s.className = 'split-letter';
-              s.textContent = ch;
-              frag.appendChild(s);
+              // Wrap word in a no-break span, then letters inside
+              const wordSpan = document.createElement('span');
+              wordSpan.style.whiteSpace = 'nowrap';
+              wordSpan.style.display = 'inline-block';
+              [...word].forEach((ch) => {
+                const s = document.createElement('span');
+                s.className = 'split-letter';
+                s.textContent = ch;
+                wordSpan.appendChild(s);
+              });
+              frag.appendChild(wordSpan);
             }
           });
           child.replaceWith(frag);
