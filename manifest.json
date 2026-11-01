@@ -1,0 +1,13 @@
+{
+  "name": "Alivio",
+  "short_name": "Alivio",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c8102e",
+  "description": "Weekly chapters. Warm introductions. Closed work.",
+  "icons": [
+    { "src": "assets/feature-circle.jpg", "sizes": "192x192", "type": "image/jpeg" },
+    { "src": "assets/feature-circle.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}

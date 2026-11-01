@@ -1,20 +1,159 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Nexora is a structured referral network for ambitious professionals. One exclusive seat per profession. Weekly chapters. Measurable business." />
-    <title>Nexora — Grow Through Trusted Referrals</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <script>
-      document.documentElement.setAttribute('data-theme', localStorage.getItem('nexora-theme') === 'dark' ? 'dark' : 'light')
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#c8102e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Alivio | Warm Introductions. Closed Work.</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('alivio-theme')||'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
+</head>
+<body data-page="home">
+  <main>
+    <section class="hero">
+      <h1 class="hero-title hover-text">Show Up. Get Introduced. Close the Work.</h1>
+      <div class="hero-frame" id="heroFrame">
+        <video autoplay muted loop playsinline poster="assets/feature-circle.jpg">
+          <source src="assets/meeting-hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-copy">
+          <h2 class="hover-text">Fill Your <span class="word-swap" id="swap"><span class="rainbow-text">Calendar</span></span></h2>
+        </div>
+        <div class="hero-cta">
+          <a class="btn" href="invite.html" data-magnetic>GET INVITED</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro">
+      <div class="reveal">
+        <h2 class="hover-text">Alivio is a weekly table of operators who trade <span class="rainbow-text">warm introductions</span> — not business cards</h2>
+      </div>
+      <p class="reveal d2">Each chapter holds one specialist per craft. You show up, you brief the room, and members open doors that advertising never will. Trust first. Then the work follows.</p>
+    </section>
+
+    <section class="intro" style="padding-top:0">
+      <div class="video-card reveal" id="openVideo" data-magnetic>
+        <video autoplay muted loop playsinline poster="assets/feature-circle.jpg">
+          <source src="assets/meeting-hero.mp4" type="video/mp4" />
+        </video>
+        <div class="play">
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="what-badge rainbow-text"><small style="display:block;font-size:14px;letter-spacing:2px">INSIDE</small>Alivio</div>
+        </div>
+      </div>
+      <div class="stats reveal d2">
+        <div class="stat"><b class="rainbow-text"><span data-count="120">0</span>K+</b><span>Operators in chapters</span><em>As of 31st December, 2025</em></div>
+        <div class="stat"><b class="rainbow-text"><span data-count="4200">0</span>+</b><span>Weekly rooms</span></div>
+        <div class="stat"><b class="rainbow-text" data-count="64">0</b><span>Countries</span></div>
+        <div class="stat"><b class="rainbow-text"><span data-count="8.4">0</span>M</b><span>Warm intros passed</span><em>Last 12 Months</em></div>
+        <div class="stat featured"><b class="rainbow-text">$<span data-count="12.6">0</span>B</b><span>Work closed through Alivio</span><em>Last 12 Months</em></div>
+      </div>
+    </section>
+
+    <section class="mid-cta">
+      <div class="mid-cta-inner reveal">
+        <h3 class="hover-text">Owners in <span class="rainbow-text">120K+</span> seats chose a weekly chapter over another mixer</h3>
+        <a class="btn" href="chapters.html" data-magnetic>FIND A ROOM</a>
+      </div>
+    </section>
+
+    <section class="feature">
+      <img src="assets/feature-circle.jpg" alt="Alivio members working around a table" />
+      <div class="veil"></div>
+      <div class="feature-copy">
+        <div class="kicker">Inner Circle</div>
+        <h2 class="hover-text">Sit With People Who Already Buy</h2>
+        <p>Every chapter is a closed table of specialists. You walk in with a live problem; you leave with a name, a number, and a reason to follow up this week.</p>
+      </div>
+      <div class="quote-card">
+        <img src="assets/quote-maya.jpg" alt="Maya Ellison" />
+        <p>“I stopped cold-calling. My chapter now sends the first meeting already warmed.” — Maya Ellison, Brand Studio</p>
+      </div>
+    </section>
+
+    <section class="feature">
+      <img src="assets/feature-scale.jpg" alt="Leadership meeting in a glass boardroom" />
+      <div class="veil"></div>
+      <div class="feature-copy">
+        <div class="kicker">Compound Weekly</div>
+        <h2 class="hover-text">Make Every Tuesday Pay Rent</h2>
+        <p>Fifty meetings a year with the same operators. Trust rises. Intros close because the person who opened the door stays in the loop until the work is signed.</p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2 class="hover-text rainbow-text">Three Moves This Month</h2>
+      <div class="steps-grid">
+        <article class="step">
+          <div class="num">01</div>
+          <h3>Sit in as a guest</h3>
+          <p>Pick a room near you — studio, hybrid, or online. Watch how a timed agenda turns strangers into useful contacts.</p>
+        </article>
+        <article class="step">
+          <div class="num">02</div>
+          <h3>Trade a 1-to-1</h3>
+          <p>After the meeting, book coffee with two members. Learn who they want to meet. That is how Alivio actually starts.</p>
+        </article>
+        <article class="step">
+          <div class="num">03</div>
+          <h3>Claim your craft seat</h3>
+          <p>One specialist per category. If the seat fits, apply. Your chapter becomes the pipeline you do not have to chase.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="marquee-wrap">
+      <div class="marquee" id="marquee">
+        <div class="t-card"><p>Four of my last six retainers came from one chapter introduction.</p><b>Jennie B</b><span>Sales studio, United States</span></div>
+        <div class="t-card"><p>I used to hunt partners for months. In Alivio they arrive before lunch.</p><b>Ernest B</b><span>Logistics, Ghana</span></div>
+        <div class="t-card"><p>First year: $480,000 closed from people who already trusted the introducer.</p><b>Paul T</b><span>Property, USA</span></div>
+        <div class="t-card"><p>Nine in ten discovery calls now start with an Alivio name attached.</p><b>Ankit P</b><span>Advisory, India</span></div>
+        <div class="t-card"><p>The weekly room replaced three slack communities I never used.</p><b>Manuel G</b><span>Studio, Spain</span></div>
+        <div class="t-card"><p>Our largest contract started as a 12-minute 1-to-1 after Tuesday’s meeting.</p><b>Priya S</b><span>Engineering, India</span></div>
+      </div>
+    </div>
+
+    <section class="faq">
+      <h2 class="hover-text">Questions before you visit</h2>
+      <details open>
+        <summary>How do I find a room?</summary>
+        <p>Use Get Invited. You will see nearby chapters, meeting times, and who to write. Visit first — membership comes after the room feels right.</p>
+      </details>
+      <details>
+        <summary>How does a seat work?</summary>
+        <p>Each chapter holds one person per craft. If your category is open, you apply with the membership circle. Interview, references, then a vote.</p>
+      </details>
+      <details>
+        <summary>Do I need a sponsor?</summary>
+        <p>No. After you join, a mentor walks you through the agenda, 1-to-1s, and how to brief the room so members can actually send you work.</p>
+      </details>
+      <details>
+        <summary>Can I join online?</summary>
+        <p>Yes. Alivio runs studio, hybrid, and fully online chapters with the same timed agenda — intros, education, and warm handoffs.</p>
+      </details>
+    </section>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModal">×</button>
+      <video id="modalVid" controls poster="assets/feature-circle.jpg">
+        <source src="assets/meeting-hero.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script src="js/chrome.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
+</body>
 </html>

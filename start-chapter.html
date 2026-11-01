@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#c8102e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Start a Chapter | Alivio</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('alivio-theme')||'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
+</head>
+<body data-page="invite">
+  <main>
+
+    <section class="page-hero">
+      <h1 class="hover-text rainbow-text">Start a Chapter</h1>
+      <p>If your city does not have the right room yet, build it.</p>
+    </section>
+
+    <section class="content prose">
+      <p>Core groups launch with 12–20 founding members, a director, and a 90-day visitor plan. Alivio provides the agenda, training, and Connect workspace on day one.</p>
+      <form class="form js-form">
+        <input placeholder="Your name" required />
+        <input type="email" placeholder="Email" required />
+        <input placeholder="Target city" required />
+        <textarea rows="4" placeholder="Who is already interested?"></textarea>
+        <button class="btn" type="submit" data-magnetic>START A CORE GROUP</button>
+        <p class="form-note"></p>
+      </form>
+    </section>
+
+  </main>
+  <script src="js/chrome.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
+</body>
+</html>
