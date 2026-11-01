@@ -398,8 +398,21 @@ html[data-theme="dark"] .kicker {
   color: #05050a;
   background: var(--rainbow); background-size: 240% 100%; animation: rainbow 5s linear infinite;
 }
-.feature-copy h2 { font-size: clamp(34px, 4.2vw, 56px); font-weight: 800; max-width: 640px; letter-spacing: -1.3px; }
+.feature-copy h2 { font-size: clamp(34px, 4.2vw, 56px); font-weight: 800; max-width: 640px; letter-spacing: -1.3px; word-break: keep-all; overflow-wrap: normal; white-space: normal; }
 .feature-copy p { max-width: 520px; margin-top: 16px; font-size: 17px; line-height: 1.65; color: var(--feature-p); }
+
+.feature-bridge {
+  max-width: 860px; margin: 64px auto 0; padding: 0 24px;
+  text-align: center;
+}
+.feature-bridge h2 {
+  font-size: clamp(32px, 3.8vw, 52px); font-weight: 800;
+  letter-spacing: -1.3px; line-height: 1.15;
+}
+.feature-bridge p {
+  margin-top: 16px; font-size: 17px; line-height: 1.7;
+  color: var(--muted); max-width: 680px; margin-left: auto; margin-right: auto;
+}
 .quote-card {
   position: absolute; right: 40px; bottom: 32px; z-index: 3;
   background: var(--quote-bg); backdrop-filter: blur(12px);
