@@ -19,7 +19,7 @@
     <section class="hero">
       <h1 class="hero-title hover-text">Show Up. Get Introduced. Close the Work.</h1>
       <div class="hero-frame" id="heroFrame">
-        <video autoplay muted loop playsinline poster="assets/feature-circle.jpg">
+        <video id="heroVid" muted loop playsinline preload="none" poster="assets/feature-circle.jpg">
           <source src="assets/meeting-hero.mp4" type="video/mp4" />
         </video>
         <div class="hero-overlay"></div>
@@ -41,7 +41,7 @@
 
     <section class="intro" style="padding-top:0">
       <div class="video-card reveal" id="openVideo" data-magnetic>
-        <video autoplay muted loop playsinline poster="assets/feature-circle.jpg">
+        <video id="cardVid" muted loop playsinline preload="none" poster="assets/feature-circle.jpg">
           <source src="assets/meeting-hero.mp4" type="video/mp4" />
         </video>
         <div class="play">
@@ -155,5 +155,14 @@
 
   <script src="js/chrome.js?v=11"></script>
   <script src="js/app.js?v=11"></script>
+  <script>
+    // Start videos after 2 seconds for faster initial page load
+    setTimeout(function() {
+      var heroVid = document.getElementById('heroVid');
+      var cardVid = document.getElementById('cardVid');
+      if (heroVid) { heroVid.load(); heroVid.play(); }
+      if (cardVid) { cardVid.load(); cardVid.play(); }
+    }, 2000);
+  </script>
 </body>
 </html>
