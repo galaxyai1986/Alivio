@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cookies — Nexora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('nexora-theme') === 'dark' ? 'dark' : 'light')</script>
+</head>
+<body data-page="cookies">
+  <header data-nav></header>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker">Legal</div>
+      <h1>Cookies</h1>
+      <p>This demo uses localStorage, not third-party ad cookies. Here is every key we write.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="grid-3">
+        <article class="card">
+          <div class="kicker">Necessary</div>
+          <h3>nexora-theme</h3>
+          <p style="color:var(--muted);margin-top:8px">Stores light or dark. Lives in localStorage. No expiry besides you clearing the browser.</p>
+        </article>
+        <article class="card">
+          <div class="kicker">Not used</div>
+          <h3>Analytics</h3>
+          <p style="color:var(--muted);margin-top:8px">No page-view trackers on this HTML set. A live product may add a first-party counter later.</p>
+        </article>
+        <article class="card">
+          <div class="kicker">Not used</div>
+          <h3>Ads</h3>
+          <p style="color:var(--muted);margin-top:8px">No remarketing pixels. Chapter invites are requested, not retargeted.</p>
+        </article>
+      </div>
+      <div class="prose" style="margin-top:40px">
+        <p>You can wipe the theme key anytime: open DevTools, Application, Local Storage, delete <b>nexora-theme</b>. The site falls back to light.</p>
+        <a class="btn btn-ghost" href="privacy.html">Read the privacy policy</a>
+      </div>
+    </div>
+  </section>
+  <footer data-footer></footer>
+  <script src="js/data.js?v=3"></script>
+  <script src="js/site.js?v=3"></script>
+</body>
+</html>

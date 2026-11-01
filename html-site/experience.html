@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The room — Nexora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f3f7fc;
+  --ink: #0b1a2b;
+  --muted: #5a6b7c;
+  --orange: #ff6a1a;
+  --blue: #1a6dff;
+  --card: #ffffff;
+  --line: rgba(11, 26, 43, 0.1);
+  --accent: #ff6a1a;
+  --accent-2: #1a6dff;
+  --shadow: 0 20px 50px rgba(26, 109, 255, 0.08);
+  --nav: rgba(255, 255, 255, 0.9);
+  --footer: #0b1a2b;
+  --footer-text: #e8f0ff;
+  --ok: #e8f3ff;
+  --ok-ink: #1a6dff;
+}
+
+[data-theme="dark"] {
+  --bg: #05030c;
+  --bg-alt: #12081f;
+  --ink: #ffffff;
+  --muted: #c9b8ea;
+  --orange: #ff2d55;
+  --blue: #3d8bff;
+  --card: #12081f;
+  --line: rgba(180, 74, 255, 0.38);
+  --accent: #b44aff;
+  --accent-2: #3d8bff;
+  --shadow: 0 0 40px rgba(180, 74, 255, 0.35), 0 20px 50px rgba(61, 139, 255, 0.18);
+  --nav: rgba(5, 3, 12, 0.86);
+  --footer: #02010a;
+  --footer-text: #ffffff;
+  --ok: rgba(180, 74, 255, 0.22);
+  --ok-ink: #ffe14a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+[data-theme="dark"] body {
+  background:
+    radial-gradient(900px 480px at 12% -10%, rgba(180, 74, 255, 0.38), transparent 60%),
+    radial-gradient(700px 420px at 92% 8%, rgba(61, 139, 255, 0.32), transparent 55%),
+    radial-gradient(620px 380px at 80% 88%, rgba(255, 45, 85, 0.18), transparent 60%),
+    radial-gradient(500px 320px at 8% 92%, rgba(255, 225, 74, 0.1), transparent 55%),
+    #05030c;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font-family: inherit; }
+button { cursor: pointer; }
+
+.serif { font-family: 'Instrument Serif', Georgia, serif; }
+.wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.kicker {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+[data-theme="dark"] .kicker {
+  color: #ffe14a;
+  text-shadow: 0 0 12px rgba(255, 225, 74, 0.55);
+}
+[data-theme="dark"] h1,
+[data-theme="dark"] h2 {
+  text-shadow: 0 0 28px rgba(180, 74, 255, 0.35);
+}
+h1, h2 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+h1 { font-size: clamp(40px, 6vw, 74px); }
+h2 { font-size: clamp(30px, 4vw, 50px); }
+h3 { font-size: 22px; font-weight: 600; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  will-change: transform;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.42), transparent 42%, rgba(255,255,255,0.16));
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -1;
+}
+.btn-accent { background: var(--accent); color: #fff; }
+[data-theme="dark"] .btn-accent {
+  color: #05030c;
+  background: #ffe14a;
+  box-shadow: 0 0 22px rgba(255, 225, 74, 0.55);
+}
+.btn-ink { background: var(--accent-2); color: #fff; }
+[data-theme="dark"] .btn-ink {
+  background: #b44aff;
+  box-shadow: 0 0 22px rgba(180, 74, 255, 0.55);
+}
+.btn-ghost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+[data-theme="dark"] .btn-ghost {
+  border-color: #3d8bff;
+  box-shadow: 0 0 14px rgba(61, 139, 255, 0.35);
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(16px);
+  background: var(--nav);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  gap: 24px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 13px;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--accent-2);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+}
+[data-theme="dark"] .brand-mark {
+  background: #b44aff;
+  box-shadow: 0 0 18px rgba(180, 74, 255, 0.8);
+}
+[data-theme="dark"] .theme-btn {
+  border-color: #b44aff;
+  color: #ffe14a;
+  box-shadow: 0 0 12px rgba(180, 74, 255, 0.45);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-drop { position: relative; }
+.nav-drop > button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font-size: 14px;
+  padding: 0;
+  font-weight: 400;
+}
+.nav-drop .drop {
+  display: none;
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  min-width: 210px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: dropIn 0.22s ease;
+  z-index: 50;
+}
+[data-theme="dark"] .nav-drop .drop {
+  background: rgba(18, 8, 31, 0.82);
+  box-shadow: 0 0 24px rgba(180, 74, 255, 0.28);
+}
+.nav-drop:hover .drop,
+.nav-drop.open .drop { display: grid; }
+.nav-drop .drop a {
+  padding: 9px 12px;
+  border-radius: 10px;
+  display: block;
+  color: var(--ink);
+}
+.nav-drop .drop a:hover { background: var(--bg-alt); }
+.nav-cta { display: flex; align-items: center; gap: 10px; }
+.menu-btn, .theme-btn {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: var(--ink);
+}
+.menu-btn { display: none; }
+
+.hero { position: relative; overflow: visible; padding: 72px 0 40px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero p.lede {
+  margin: 18px 0 28px;
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 540px;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,106,26,0.18), transparent 70%);
+  right: -80px;
+  top: -80px;
+  pointer-events: none;
+}
+[data-theme="dark"] .orb {
+  background: radial-gradient(circle, rgba(180,74,255,0.35), rgba(255,45,85,0.12) 50%, transparent 70%);
+}
+.hero-card {
+  background: var(--accent-2);
+  color: #fff;
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+[data-theme="dark"] .hero-card {
+  background: linear-gradient(160deg, #2a0d55, #0d1a4a 55%, #1a0830);
+  border: 1px solid rgba(180, 74, 255, 0.55);
+  box-shadow: 0 0 40px rgba(180, 74, 255, 0.4), 0 0 18px rgba(61, 139, 255, 0.25);
+}
+.hero-card .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.hero-card .row:first-child { border-top: 0; }
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff6a1a;
+  box-shadow: 0 0 0 6px rgba(255, 106, 26, 0.18);
+}
+[data-theme="dark"] .dot {
+  background: #ffe14a;
+  box-shadow: 0 0 10px #ffe14a, 0 0 0 6px rgba(255, 225, 74, 0.18);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin: 28px 0 72px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+.stat b {
+  display: block;
+  font-family: 'Instrument Serif', serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: var(--accent-2);
+}
+[data-theme="dark"] .stat b {
+  color: #ffe14a;
+  text-shadow: 0 0 16px rgba(255, 225, 74, 0.55);
+}
+[data-theme="dark"] .stat,
+[data-theme="dark"] .card {
+  box-shadow: 0 0 16px rgba(180, 74, 255, 0.16);
+}
+.stat span { color: var(--muted); font-size: 13px; }
+
+.section { padding: 84px 0; }
+.section.alt { background: var(--bg-alt); }
+.section.dark {
+  background: var(--footer);
+  color: var(--footer-text);
+}
+[data-theme="dark"] .section.dark {
+  background: #1a0530;
+  color: #fff;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.section-head p { max-width: 420px; color: var(--muted); }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 24px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+.quote {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 16px 0 18px;
+}
+.person { font-size: 13px; color: var(--muted); }
+
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.step {
+  padding: 8px 28px 8px 0;
+  border-right: 1px solid var(--line);
+}
+.step:last-child { border-right: 0; padding-right: 0; }
+.step .n {
+  font-family: 'Instrument Serif', serif;
+  font-size: 40px;
+  color: var(--accent);
+}
+[data-theme="dark"] .step .n { color: #ff2d55; }
+
+.ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+.ticker-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  padding: 18px 0;
+}
+.ticker-item { white-space: nowrap; color: var(--muted); font-size: 14px; }
+.ticker-item b { color: var(--ink); }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.cta-band {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 24px;
+  align-items: center;
+  background: var(--accent-2);
+  color: #fff;
+  border-radius: 28px;
+  padding: 42px;
+}
+[data-theme="dark"] .cta-band {
+  background: linear-gradient(120deg, #3a0d68, #102a6e);
+  border: 1px solid rgba(255, 225, 74, 0.4);
+  box-shadow: 0 0 36px rgba(180, 74, 255, 0.35);
+}
+.page-hero { padding: 72px 0 36px; }
+.page-hero p { margin-top: 14px; color: var(--muted); max-width: 560px; font-size: 18px; }
+
+.chapter-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  color: var(--accent-2);
+}
+[data-theme="dark"] .badge { background: rgba(180,74,255,0.2); color: #ffe14a; }
+.badge.gold { background: #ffe8d6; color: var(--orange); }
+[data-theme="dark"] .badge.gold { background: rgba(255,45,85,0.2); color: #ff2d55; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; color: var(--muted); }
+.seats { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.chip {
+  font-size: 12px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  color: var(--ink);
+}
+.chip.open { background: #e8f0ff; color: var(--accent-2); }
+[data-theme="dark"] .chip.open { background: rgba(61,139,255,0.2); color: #3d8bff; }
+
+.form { display: grid; gap: 14px; }
+label { font-size: 13px; font-weight: 600; }
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 15px;
+}
+textarea { min-height: 120px; resize: vertical; }
+.wizard-progress { display: flex; gap: 8px; margin-bottom: 28px; }
+.wizard-progress span {
+  height: 4px;
+  flex: 1;
+  border-radius: 99px;
+  background: var(--line);
+}
+.wizard-progress span.on { background: var(--accent-2); }
+[data-theme="dark"] .wizard-progress span.on { background: #b44aff; }
+.calc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.calc-out {
+  background: var(--accent-2);
+  color: #fff;
+  border-radius: 22px;
+  padding: 28px;
+}
+[data-theme="dark"] .calc-out {
+  background: linear-gradient(160deg, #3a0d68, #102a6e);
+}
+.calc-out b {
+  font-family: 'Instrument Serif', serif;
+  font-size: 48px;
+  font-weight: 400;
+}
+.faq details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+.faq summary { cursor: pointer; font-weight: 600; list-style: none; }
+.faq details p { margin-top: 8px; color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.filter {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+.filter.on { background: var(--accent-2); color: #fff; border-color: var(--accent-2); }
+[data-theme="dark"] .filter.on { background: #b44aff; border-color: #b44aff; }
+
+.footer {
+  background: var(--footer);
+  color: var(--footer-text);
+  padding: 56px 0 28px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 40px;
+}
+.footer a { color: rgba(255,255,255,0.72); font-size: 14px; display: block; padding: 4px 0; }
+.footer a:hover { color: #fff; }
+.legal {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 18px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+.mobile-panel {
+  display: none;
+  padding: 8px 0 20px;
+  border-top: 1px solid var(--line);
+}
+.mobile-panel a { display: block; padding: 10px 0; }
+.ok {
+  background: var(--ok);
+  color: var(--ok-ink);
+  border-radius: 16px;
+  padding: 16px;
+}
+.hidden { display: none !important; }
+.stack { display: grid; gap: 14px; }
+.price-card { border-top: 4px solid var(--accent); }
+.row-line { display: flex; gap: 18px; padding: 12px 0; border-top: 1px solid var(--line); }
+.time { width: 56px; color: var(--accent); font-weight: 700; }
+.panel-card {
+  background: var(--accent-2);
+  color: #fff;
+  min-height: 320px;
+}
+[data-theme="dark"] .panel-card {
+  background: linear-gradient(160deg, #2a0d55, #0d1a4a);
+}
+
+@media (max-width: 900px) {
+  .nav-links, .nav-cta .btn-ghost { display: none; }
+  .menu-btn { display: block; }
+  .mobile-panel.open { display: block; }
+  .hero-grid, .grid-3, .grid-2, .stats, .steps, .cta-band, .footer-grid, .calc, .section-head {
+    grid-template-columns: 1fr;
+  }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 18px 0; }
+  .hero-card { min-height: auto; }
+  .cta-band { padding: 28px; }
+  .nav-drop { display: none; }
+}
+
+.card,
+.stat,
+.hero-card,
+.price-card,
+.panel-card,
+.calc-out,
+.cta-band {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+}
+.card,
+.stat,
+.hero-card,
+.price-card,
+.panel-card,
+.calc-out {
+  position: relative;
+  overflow: hidden;
+}
+.card::before,
+.stat::before,
+.hero-card::before,
+.price-card::before,
+.panel-card::before,
+.calc-out::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.22), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.35s ease;
+}
+.card:hover::before,
+.stat:hover::before,
+.hero-card:hover::before,
+.price-card:hover::before,
+.panel-card:hover::before,
+.calc-out:hover::before { opacity: 1; }
+.card > *,
+.stat > *,
+.hero-card > *,
+.price-card > *,
+.panel-card > *,
+.calc-out > * { position: relative; z-index: 2; }
+.card:hover,
+.stat:hover,
+.hero-card:hover,
+.price-card:hover,
+.panel-card:hover,
+.calc-out:hover {
+  transform: scale(1.05);
+  box-shadow: 0 22px 50px rgba(26, 109, 255, 0.18);
+  z-index: 3;
+}
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .stat:hover,
+[data-theme="dark"] .hero-card:hover,
+[data-theme="dark"] .price-card:hover,
+[data-theme="dark"] .panel-card:hover,
+[data-theme="dark"] .calc-out:hover {
+  box-shadow: 0 0 36px rgba(180, 74, 255, 0.5), 0 0 18px rgba(61, 139, 255, 0.35);
+}
+[data-theme="dark"] .hero-card::before,
+[data-theme="dark"] .panel-card::before,
+[data-theme="dark"] .calc-out::before {
+  background: linear-gradient(135deg, rgba(180,74,255,0.18), rgba(255,255,255,0.08) 40%, transparent 70%);
+}
+.hero-card { transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease; }
+.grid-3, .grid-2, .stats { padding: 6px; }
+.legal a { color: inherit; display: inline; padding: 0; }
+
+.page-hero, .hero, .section, .stats {
+  animation: rise 0.7s ease backwards;
+}
+.hero { animation-delay: 0.04s; }
+.stats { animation-delay: 0.12s; }
+.section:nth-of-type(2) { animation-delay: 0.16s; }
+.section:nth-of-type(3) { animation-delay: 0.22s; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: none; }
+}
+.stat b.drop {
+  display: inline-block;
+  animation: dropIn 0.45s ease;
+}
+.prose { max-width: 760px; }
+.prose p, .prose li { color: var(--muted); margin: 0 0 14px; }
+.prose h3 { margin: 28px 0 10px; }
+.prose ul { padding-left: 18px; margin-bottom: 18px; }
+.blog-meta { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+</style>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('nexora-theme') === 'dark' ? 'dark' : 'light')</script>
+</head>
+<body data-page="experience">
+  <header data-nav></header>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">The Nexora room</div>
+      <h1>Ninety minutes. A timed agenda. Work that can be counted.</h1>
+      <p>Word of mouth still closes more business than ads. Nexora turns that instinct into a weekly operating system — exclusive seats, public numbers, and a meeting you can describe in one breath.</p>
+      <div style="margin-top:22px"><a class="btn btn-accent" href="find-chapter.html">Sit in on a meeting</a></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap grid-2">
+      <div>
+        <div class="kicker">Weekly agenda</div>
+        <h2>The same clock in every city.</h2>
+        <p style="color:var(--muted);margin:12px 0 24px">In person, hybrid, or online — the agenda does not drift. That is why visitors feel the room on the first visit.</p>
+        <div class="row-line"><span class="time">07:30</span><span>Doors, coffee, name tents</span></div>
+        <div class="row-line"><span class="time">07:40</span><span>Open, visitor welcome, 60-second pitches</span></div>
+        <div class="row-line"><span class="time">08:10</span><span>Feature presentation (one member, 10 min)</span></div>
+        <div class="row-line"><span class="time">08:25</span><span>Referral pass + closed business</span></div>
+        <div class="row-line"><span class="time">08:45</span><span>1-to-1 bookings for the week</span></div>
+        <div class="row-line"><span class="time">09:00</span><span>Close. Room clears. Pipeline stays.</span></div>
+      </div>
+      <div class="card panel-card">
+        <div class="kicker">What you walk out with</div>
+        <h3 class="serif" style="font-size:36px;font-weight:400;margin:12px 0 18px">Not a stack of cards. A tracked introduction.</h3>
+        <p style="opacity:.8">Every referral has a giver, a receiver, a client context, and a rupee value when it closes. Your chapter can see the trail.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Three ways to meet</div>
+          <h2>Pick the room that fits how you work.</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>In person</h3><p style="color:var(--muted);margin-top:8px">Breakfast rooms, 90 minutes, name tents on the table. Best for cities with dense professional clusters.</p></article>
+        <article class="card"><h3>Hybrid</h3><p style="color:var(--muted);margin-top:8px">First week of the month in the room. Remaining weeks on a structured video agenda. Built for travel-heavy founders.</p></article>
+        <article class="card"><h3>Online</h3><p style="color:var(--muted);margin-top:8px">Fully remote chapters with the same timed agenda. Ideal if your clients already live on calls.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Member advantages</div>
+          <h2>Built to beat a brochure network.</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Exclusive category seat</h3><p style="color:var(--muted);margin-top:8px">One realtor, one CA, one interior designer per chapter. Referrals in your craft land on your desk, not a competitor’s.</p></article>
+        <article class="card"><h3>Live chapter health</h3><p style="color:var(--muted);margin-top:8px">Open seats, average closed value, attendance, and next meeting time — visible before you visit.</p></article>
+        <article class="card"><h3>Referral pipeline</h3><p style="color:var(--muted);margin-top:8px">Passed, contacted, closed, rupee value. A kanban instead of a handshake and a hope.</p></article>
+        <article class="card"><h3>Fifty meetings a year</h3><p style="color:var(--muted);margin-top:8px">A proven 90-minute agenda. 60-second pitches, feature presentations, referrals, and 1-to-1 bookings.</p></article>
+        <article class="card"><h3>Member academy</h3><p style="color:var(--muted);margin-top:8px">Pitch labs, trust-building drills, and recordings from operators who actually close referred work.</p></article>
+        <article class="card"><h3>Public pricing</h3><p style="color:var(--muted);margin-top:8px">No hidden dues. Annual seat fees listed by city tier so you can run the ROI before you apply.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid-2">
+      <div>
+        <div class="kicker">From the room</div>
+        <h2>Members, not slogans.</h2>
+        <div class="stack" style="margin-top:24px">
+          <article class="card">
+            <p class="quote">“In nine months, 71% of new retainers came from chapter introductions. I retired cold outreach.”</p>
+            <p class="person">Arjun Sethi · Chartered Accountant · Gurugram</p>
+          </article>
+          <article class="card">
+            <p class="quote">“One exclusive seat meant every interior lead in the room had my name on it. That is not networking. That is distribution.”</p>
+            <p class="person">Meera Kulkarni · Interior Designer · Pune</p>
+          </article>
+          <article class="card">
+            <p class="quote">“My first closed referral paid the annual seat twice over. The rest has been compounding.”</p>
+            <p class="person">Daniel Okonkwo · Commercial realtor · Lagos</p>
+          </article>
+        </div>
+        <a class="btn btn-ghost" href="stories.html" style="margin-top:18px">All stories</a>
+      </div>
+      <div class="faq">
+        <div class="kicker">FAQ</div>
+        <h2 style="margin-bottom:12px">Straight answers.</h2>
+        <details><summary>How do I find a chapter?</summary><p>Use Find a Chapter. Filter by city, meeting mode, and your profession. You will see open seats, average deal size, and the next meeting before you visit.</p></details>
+        <details><summary>Is the visitor meeting free?</summary><p>Yes. Your first two visits are free. You apply only if the room fits and your category is open.</p></details>
+        <details><summary>What if my profession is already taken?</summary><p>You can visit nearby chapters, join a forming chapter, or start a new room. We never double a category inside one chapter.</p></details>
+        <details><summary>Do I need a sponsor?</summary><p>No. After two visits you apply online. The membership circle interviews you and checks two professional references.</p></details>
+        <details><summary>What does the seat cost?</summary><p>Metro seats are ₹48,000 a year, growth cities ₹36,000, online chapters ₹28,000. Visitor meetings stay free. Run the ROI calculator on the home page.</p></details>
+        <details><summary>How do you keep members reputable?</summary><p>Application, interview, references, and a 90-day review. Attendance and closed-business numbers are visible to the chapter.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <footer data-footer></footer>
+  <script>
+window.NEXORA = {
+  stats: [
+    { value: '48K+', label: 'Active members', note: 'Across 32 countries' },
+    { value: '1,240', label: 'Weekly chapters', note: 'In-person, hybrid, online' },
+    { value: '₹2,140 Cr', label: 'Closed business', note: 'Last 12 months' },
+    { value: '3.1M', label: 'Referrals passed', note: 'Tracked, not guessed' },
+  ],
+  values: [
+    { title: 'Give first', body: 'The fastest way to earn trust is to send a qualified introduction before you ask for one.' },
+    { title: 'One seat, one craft', body: 'Every chapter holds a single exclusive seat per profession. Your category is yours to own.' },
+    { title: 'Show the numbers', body: 'Referrals, closed deals, and meeting attendance are public inside the chapter. No vanity metrics.' },
+    { title: 'Keep the promise', body: 'Weekly presence, honest follow-up, and clean handoffs. Accountability is the product.' },
+  ],
+  pillars: [
+    { kicker: 'Beyond mixing', title: 'A room that actually works for you', body: 'Meet the same trusted professionals every week. They learn your ideal client, your edge, and the exact language that converts.', quote: 'I stopped collecting cards. I started collecting closed work.', person: 'Meera Kulkarni · Interior studio, Pune' },
+    { kicker: 'Compounding pipeline', title: 'Referrals with a paper trail', body: 'Every introduction is logged, valued, and followed to close. You see who gives, who converts, and where your next rupee comes from.', quote: '₹1.8 Cr in referred revenue in 11 months. The tracker made it real.', person: 'Arjun Sethi · CA firm, Gurugram' },
+    { kicker: 'Craft, not slogans', title: 'Become the person people refer', body: 'Weekly 60-second pitches, structured 1-to-1s, and a public leaderboard train you to be specific, generous, and memorable.', quote: 'My 60-second used to ramble. Now it books meetings.', person: 'Lina D’Souza · Brand strategist, Goa' },
+  ],
+  steps: [
+    { n: '01', title: 'Visit a chapter', body: 'Sit in on a live meeting. See the agenda, the energy, and whether the room fits your craft.' },
+    { n: '02', title: 'Meet the members', body: 'Talk to the people who would actually send you work. Ask about open seats and typical deal size.' },
+    { n: '03', title: 'Claim your seat', body: 'Apply, interview with the membership circle, and take the exclusive category if it is open.' },
+  ],
+  meetingTypes: [
+    { title: 'In person', body: 'Breakfast rooms, 90 minutes, name tents on the table. Best for cities with dense professional clusters.' },
+    { title: 'Hybrid', body: 'First week of the month in the room. Remaining weeks on a structured video agenda. Built for travel-heavy founders.' },
+    { title: 'Online', body: 'Fully remote chapters with the same timed agenda. Ideal if your clients already live on calls.' },
+  ],
+  benefits: [
+    { title: 'Exclusive category seat', body: 'One realtor, one CA, one interior designer per chapter. Referrals in your craft land on your desk, not a competitor’s.' },
+    { title: 'Live chapter health', body: 'Open seats, average closed value, attendance, and next meeting time — visible before you visit.' },
+    { title: 'Referral pipeline', body: 'Passed, contacted, closed, rupee value. A kanban instead of a handshake and a hope.' },
+    { title: 'Fifty meetings a year', body: 'A proven 90-minute agenda. 60-second pitches, feature presentations, referrals, and 1-to-1 bookings.' },
+    { title: 'Member academy', body: 'Pitch labs, trust-building drills, and recordings from operators who actually close referred work.' },
+    { title: 'Public pricing', body: 'No hidden dues. Annual seat fees listed by city tier so you can run the ROI before you apply.' },
+  ],
+  pricing: [
+    { tier: 'Metro', cities: 'Mumbai, Delhi NCR, Bengaluru, Hyderabad', fee: '₹48,000', amount: 48000, note: 'Annual seat · visitor meetings free' },
+    { tier: 'Growth city', cities: 'Pune, Ahmedabad, Jaipur, Kochi, Chandigarh', fee: '₹36,000', amount: 36000, note: 'Annual seat · visitor meetings free' },
+    { tier: 'Online chapter', cities: 'Pan-India and cross-border remote rooms', fee: '₹28,000', amount: 28000, note: 'Annual seat · visitor meetings free' },
+  ],
+  professions: ['Chartered Accountant', 'Interior Designer', 'Real Estate Advisor', 'Brand Strategist', 'Web Studio', 'Insurance Advisor', 'Architect', 'HR Consultant', 'Legal Counsel', 'Photographer', 'Wealth Manager', 'Civil Contractor', 'Digital Marketer', 'Printer', 'Event Planner', 'Nutritionist'],
+  chapters: [
+    { id: 'pwr-01', name: 'Nexora Bandra West', city: 'Mumbai', region: 'Maharashtra', mode: 'In person', day: 'Wednesday', time: '7:30 AM', venue: 'Sea Lounge, Bandra', members: 34, openSeats: 6, avgDeal: '₹4.2 L', closedYtd: '₹6.8 Cr', open: ['Photographer', 'Printer', 'Nutritionist', 'Event Planner', 'HR Consultant', 'Civil Contractor'], taken: ['Chartered Accountant', 'Interior Designer', 'Real Estate Advisor', 'Brand Strategist'] },
+    { id: 'pwr-02', name: 'Nexora Koramangala', city: 'Bengaluru', region: 'Karnataka', mode: 'Hybrid', day: 'Thursday', time: '8:00 AM', venue: 'IndiQube Omega + video', members: 41, openSeats: 4, avgDeal: '₹3.6 L', closedYtd: '₹9.1 Cr', open: ['Legal Counsel', 'Printer', 'Wealth Manager', 'Photographer'], taken: ['Web Studio', 'Chartered Accountant', 'Digital Marketer', 'Architect'] },
+    { id: 'pwr-03', name: 'Nexora Connaught Place', city: 'Delhi', region: 'Delhi NCR', mode: 'In person', day: 'Tuesday', time: '7:45 AM', venue: 'The Imperial, Janpath', members: 38, openSeats: 5, avgDeal: '₹5.1 L', closedYtd: '₹8.4 Cr', open: ['Interior Designer', 'Event Planner', 'Nutritionist', 'Printer', 'HR Consultant'], taken: ['Real Estate Advisor', 'Chartered Accountant', 'Legal Counsel', 'Insurance Advisor'] },
+    { id: 'pwr-04', name: 'Nexora Jubilee Hills', city: 'Hyderabad', region: 'Telangana', mode: 'In person', day: 'Friday', time: '8:00 AM', venue: 'Park Hyatt', members: 29, openSeats: 8, avgDeal: '₹2.9 L', closedYtd: '₹4.1 Cr', open: ['Brand Strategist', 'Photographer', 'Web Studio', 'Architect', 'Printer', 'Nutritionist', 'Event Planner', 'HR Consultant'], taken: ['Chartered Accountant', 'Real Estate Advisor', 'Insurance Advisor'] },
+    { id: 'pwr-05', name: 'Nexora Koregaon Park', city: 'Pune', region: 'Maharashtra', mode: 'Hybrid', day: 'Wednesday', time: '8:15 AM', venue: 'The Ritz-Carlton + video', members: 32, openSeats: 7, avgDeal: '₹2.4 L', closedYtd: '₹3.7 Cr', open: ['Legal Counsel', 'Wealth Manager', 'Photographer', 'Printer', 'Civil Contractor', 'Nutritionist', 'Event Planner'], taken: ['Interior Designer', 'Chartered Accountant', 'Brand Strategist'] },
+    { id: 'pwr-06', name: 'Nexora Online Deccan', city: 'Pan-India', region: 'Remote', mode: 'Online', day: 'Monday', time: '9:00 AM', venue: 'Nexora Rooms', members: 46, openSeats: 3, avgDeal: '₹1.8 L', closedYtd: '₹5.2 Cr', open: ['Printer', 'Civil Contractor', 'Nutritionist'], taken: ['Web Studio', 'Digital Marketer', 'Brand Strategist', 'Chartered Accountant'] },
+    { id: 'pwr-07', name: 'Nexora C G Road', city: 'Ahmedabad', region: 'Gujarat', mode: 'In person', day: 'Thursday', time: '7:30 AM', venue: 'House of MG', members: 27, openSeats: 9, avgDeal: '₹2.1 L', closedYtd: '₹2.9 Cr', open: ['Interior Designer', 'Web Studio', 'Photographer', 'Architect', 'Printer', 'Event Planner', 'HR Consultant', 'Nutritionist', 'Legal Counsel'], taken: ['Chartered Accountant', 'Real Estate Advisor', 'Insurance Advisor'] },
+    { id: 'pwr-08', name: 'Nexora Whitefield', city: 'Bengaluru', region: 'Karnataka', mode: 'Online', day: 'Saturday', time: '9:30 AM', venue: 'Nexora Rooms', members: 22, openSeats: 11, avgDeal: '₹1.5 L', closedYtd: '₹1.8 Cr', open: ['Chartered Accountant', 'Interior Designer', 'Real Estate Advisor', 'Brand Strategist', 'Insurance Advisor', 'Architect', 'HR Consultant', 'Photographer', 'Wealth Manager', 'Event Planner', 'Nutritionist'], taken: ['Web Studio', 'Digital Marketer'] },
+  ],
+  stories: [
+    { id: 's1', quote: 'In nine months, 71% of new retainers came from chapter introductions. I retired cold outreach.', name: 'Arjun Sethi', role: 'Chartered Accountant', city: 'Gurugram', company: 'Sethi & Co.', metric: '₹1.8 Cr referred', country: 'India' },
+    { id: 's2', quote: 'One exclusive seat meant every interior lead in the room had my name on it. That is not networking. That is distribution.', name: 'Meera Kulkarni', role: 'Interior Designer', city: 'Pune', company: 'Atelier MK', metric: '38 projects', country: 'India' },
+    { id: 's3', quote: 'My first closed referral paid the annual seat twice over. The rest has been compounding.', name: 'Daniel Okonkwo', role: 'Commercial realtor', city: 'Lagos', company: 'Harbour Listings', metric: '$214K closed', country: 'Nigeria' },
+    { id: 's4', quote: 'The 60-second drill fixed my pitch. Clients now repeat my line back to me.', name: 'Lina D’Souza', role: 'Brand strategist', city: 'Goa', company: 'Northline', metric: '12 retainers', country: 'India' },
+    { id: 's5', quote: 'I used to hunt logistics partners for weeks. In Nexora I had two trusted names in an afternoon.', name: 'Farah Al-Harthy', role: 'Freight forwarder', city: 'Muscat', company: 'Sadaf Lines', metric: '19 partners', country: 'Oman' },
+    { id: 's6', quote: 'Public attendance and a give/gain ratio made the room honest. People who show up, show up.', name: 'James Whitford', role: 'Wealth manager', city: 'Manchester', company: 'Whitford Advisory', metric: '£410K AUM', country: 'UK' },
+    { id: 's7', quote: 'We went from one print shop to a 14-person studio. Ninety percent of that work is referred.', name: 'Priya Menon', role: 'Print & packaging', city: 'Kochi', company: 'Leaf Press', metric: '₹92 L', country: 'India' },
+    { id: 's8', quote: 'Hybrid chapter let me keep the seat while I travel. Pipeline never froze.', name: 'Sofia Alvarez', role: 'Event producer', city: 'Mexico City', company: 'Casa Norte', metric: '26 events', country: 'Mexico' },
+  ],
+  countries: [
+    { name: 'India', members: '18.4K', referrals: '1.1M', business: '₹1,240 Cr', region: 'Asia' },
+    { name: 'United Kingdom', members: '4.2K', referrals: '186K', business: '£210M', region: 'Europe' },
+    { name: 'United Arab Emirates', members: '1.9K', referrals: '74K', business: 'AED 410M', region: 'Middle East' },
+    { name: 'Singapore', members: '1.1K', referrals: '41K', business: 'SGD 88M', region: 'Asia' },
+    { name: 'Nigeria', members: '860', referrals: '19K', business: '$12M', region: 'Africa' },
+    { name: 'Mexico', members: '2.4K', referrals: '91K', business: '$64M', region: 'Americas' },
+    { name: 'Germany', members: '3.1K', referrals: '122K', business: '€190M', region: 'Europe' },
+    { name: 'Australia', members: '2.0K', referrals: '67K', business: 'A$96M', region: 'Asia' },
+    { name: 'Oman', members: '210', referrals: '4.8K', business: '$9M', region: 'Middle East' },
+    { name: 'Kenya', members: '540', referrals: '11K', business: '$7M', region: 'Africa' },
+    { name: 'Canada', members: '1.6K', referrals: '52K', business: 'C$71M', region: 'Americas' },
+    { name: 'Japan', members: '2.7K', referrals: '98K', business: '¥18B', region: 'Asia' },
+  ],
+  faqs: [
+    { q: 'How do I find a chapter?', a: 'Use Find a Chapter. Filter by city, meeting mode, and your profession. You will see open seats, average deal size, and the next meeting before you visit.' },
+    { q: 'Is the visitor meeting free?', a: 'Yes. Your first two visits are free. You apply only if the room fits and your category is open.' },
+    { q: 'What if my profession is already taken?', a: 'You can visit nearby chapters, join a forming chapter, or start a new room. We never double a category inside one chapter.' },
+    { q: 'Do I need a sponsor?', a: 'No. After two visits you apply online. The membership circle interviews you and checks two professional references.' },
+    { q: 'What does the seat cost?', a: 'Metro seats are ₹48,000 a year, growth cities ₹36,000, online chapters ₹28,000. Visitor meetings stay free. Run the ROI calculator on the home page.' },
+    { q: 'How do you keep members reputable?', a: 'Application, interview, references, and a 90-day review. Attendance and closed-business numbers are visible to the chapter.' },
+  ],
+  offices: [
+    { city: 'Mumbai', role: 'South Asia HQ' },
+    { city: 'Bengaluru', role: 'Product & academy' },
+    { city: 'Delhi', role: 'North chapters' },
+    { city: 'London', role: 'Europe' },
+    { city: 'Dubai', role: 'Middle East' },
+    { city: 'Singapore', role: 'ASEAN' },
+    { city: 'Lagos', role: 'West Africa' },
+    { city: 'Mexico City', role: 'LatAm' },
+  ],
+  agenda: [
+    { t: '07:30', item: 'Doors, coffee, name tents' },
+    { t: '07:40', item: 'Open, visitor welcome, 60-second pitches' },
+    { t: '08:10', item: 'Feature presentation (one member, 10 min)' },
+    { t: '08:25', item: 'Referral pass + closed business' },
+    { t: '08:45', item: '1-to-1 bookings for the week' },
+    { t: '09:00', item: 'Close. Room clears. Pipeline stays.' },
+  ],
+  tools: [
+    { title: 'Nexora Pulse', body: 'Member app for referrals, 1-to-1 notes, attendance, and chapter chat. Demo screens live inside this marketing site’s chapter cards.' },
+    { title: 'Nexora Academy', body: 'Pitch labs, trust drills, and recorded feature presentations. Lifelong learning without a second login maze.' },
+    { title: 'Chapter health', body: 'Open seats, average closed value, 12-week attendance. Visible to visitors — not locked behind membership.' },
+  ],
+  startPath: [
+    { n: '01', title: 'Talk to a city lead', body: 'We check open categories nearby and whether a new room is the honest move — or a visit to an existing chapter.' },
+    { n: '02', title: 'Hold an interest meeting', body: 'Twelve to twenty professionals. Same agenda as a live chapter, minus the closed-business pass.' },
+    { n: '03', title: 'Form the core group', body: 'Lock six exclusive seats, pick a weekly slot, and launch. A director sits with you for the first eight weeks.' },
+  ],
+}
+
+</script>
+  <script>
+(function () {
+  var D = window.NEXORA
+  var file = (location.pathname.split('/').pop() || 'index.html')
+  if (!file || file.indexOf('.html') === -1) file = 'index.html'
+  var links = [
+    { href: 'experience.html', label: 'The room' },
+    { href: 'community.html', label: 'Cities' },
+    { href: 'stories.html', label: 'Stories' },
+    { href: 'benefits.html', label: 'Seat & pricing' },
+    { href: 'about.html', label: 'About' },
+  ]
+  var moreLinks = [
+    { href: 'about.html', label: 'About us' },
+    { href: 'contact.html', label: 'Contact us' },
+    { href: 'blog.html', label: 'Blog' },
+    { href: 'privacy.html', label: 'Privacy policy' },
+    { href: 'terms.html', label: 'Terms & conditions' },
+    { href: 'cookies.html', label: 'Cookies' },
+  ]
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('nexora-theme', theme)
+    var btn = document.querySelector('[data-theme-toggle]')
+    if (btn) btn.textContent = theme === 'dark' ? 'Light' : 'Dark'
+  }
+
+  applyTheme(localStorage.getItem('nexora-theme') === 'dark' ? 'dark' : 'light')
+
+  function navLink(l) {
+    var on = file === l.href ? ' active' : ''
+    return '<a class="' + on.trim() + '" href="' + l.href + '">' + l.label + '</a>'
+  }
+
+  var header = document.querySelector('[data-nav]')
+  if (header) {
+    header.className = 'nav'
+    header.innerHTML =
+      '<div class="wrap nav-inner">' +
+        '<a class="brand" href="index.html"><span class="brand-mark">N</span>NEXORA</a>' +
+        '<nav class="nav-links">' +
+          links.map(navLink).join('') +
+          '<div class="nav-drop" data-drop>' +
+            '<button type="button">More</button>' +
+            '<div class="drop">' + moreLinks.map(navLink).join('') + '</div>' +
+          '</div>' +
+        '</nav>' +
+        '<div class="nav-cta">' +
+          '<a class="btn btn-ghost" href="start-chapter.html">Start a chapter</a>' +
+          '<a class="btn btn-ink" href="find-chapter.html">Visit a chapter</a>' +
+          '<button class="theme-btn" type="button" data-theme-toggle>Dark</button>' +
+          '<button class="menu-btn" type="button" data-menu aria-label="Menu">Menu</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="wrap mobile-panel" data-mobile>' +
+        links.map(navLink).join('') +
+        moreLinks.map(navLink).join('') +
+        '<a href="start-chapter.html">Start a chapter</a>' +
+        '<a href="find-chapter.html">Visit a chapter</a>' +
+      '</div>'
+  }
+
+  var footer = document.querySelector('[data-footer]')
+  if (footer) {
+    footer.className = 'footer'
+    footer.innerHTML =
+      '<div class="wrap">' +
+        '<div class="footer-grid">' +
+          '<div>' +
+            '<div class="brand" style="margin-bottom:14px"><span class="brand-mark">N</span>NEXORA</div>' +
+            '<p style="max-width:320px;opacity:.78">A structured referral network. One exclusive seat per profession. Weekly rooms that close real work.</p>' +
+          '</div>' +
+          '<div>' +
+            '<div class="kicker" style="margin-bottom:10px">Explore</div>' +
+            '<a href="experience.html">The room</a>' +
+            '<a href="find-chapter.html">Find a chapter</a>' +
+            '<a href="stories.html">Member stories</a>' +
+            '<a href="community.html">Global cities</a>' +
+          '</div>' +
+          '<div>' +
+            '<div class="kicker" style="margin-bottom:10px">Join</div>' +
+            '<a href="benefits.html">Seat & pricing</a>' +
+            '<a href="start-chapter.html">Start a chapter</a>' +
+            '<a href="about.html">About Nexora</a>' +
+            '<a href="contact.html">Contact</a>' +
+            '<a href="blog.html">Blog</a>' +
+            '<a href="privacy.html">Privacy</a>' +
+            '<a href="terms.html">Terms</a>' +
+          '</div>' +
+          '<div>' +
+            '<div class="kicker" style="margin-bottom:10px">HQ</div>' +
+            '<p style="opacity:.78;font-size:14px">Nexora Collective Pvt. Ltd.<br>14, Nariman Point, Mumbai 400021<br>hello@nexora.network</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="legal"><span>© 2026 Nexora Collective. Demo marketing site. Not affiliated with any other network.</span><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cookies.html">Cookies</a></span></div>' +
+      '</div>'
+  }
+
+  applyTheme(document.documentElement.getAttribute('data-theme') || 'light')
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-theme-toggle]')
+    if (t) {
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
+      return
+    }
+    if (e.target.closest('[data-menu]')) {
+      document.querySelector('[data-mobile]').classList.toggle('open')
+      return
+    }
+    var drop = e.target.closest('[data-drop]')
+    if (drop) {
+      drop.classList.toggle('open')
+      return
+    }
+    document.querySelectorAll('[data-drop].open').forEach(function (el) { el.classList.remove('open') })
+  })
+
+  function countUp() {
+    var nodes = document.querySelectorAll('[data-count]')
+    nodes.forEach(function (el) {
+      if (el.getAttribute('data-counted') === '1') return
+      el.setAttribute('data-counted', '1')
+      var target = Number(el.getAttribute('data-count'))
+      var prefix = el.getAttribute('data-prefix') || ''
+      var suffix = el.getAttribute('data-suffix') || ''
+      var decimals = Number(el.getAttribute('data-decimals') || 0)
+      var duration = 1600
+      var start = performance.now()
+      el.classList.add('drop')
+      function tick(now) {
+        var t = Math.min(1, (now - start) / duration)
+        var eased = 1 - Math.pow(1 - t, 3)
+        var value = target * eased
+        var shown = decimals ? value.toFixed(decimals) : Math.round(value).toLocaleString('en-IN')
+        el.textContent = prefix + shown + suffix
+        if (t < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick)
+    })
+  }
+
+  function magneticButtons() {
+    var radius = 140
+    document.addEventListener('mousemove', function (e) {
+      document.querySelectorAll('.btn').forEach(function (btn) {
+        var r = btn.getBoundingClientRect()
+        var cx = r.left + r.width / 2
+        var cy = r.top + r.height / 2
+        var dx = e.clientX - cx
+        var dy = e.clientY - cy
+        var dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < radius) {
+          var pull = (radius - dist) / radius
+          btn.style.transform = 'translate(' + (dx * 0.42 * pull) + 'px,' + (dy * 0.42 * pull) + 'px) scale(1.04)'
+        } else {
+          btn.style.transform = ''
+        }
+      })
+    })
+  }
+
+  countUp()
+  magneticButtons()
+
+  var page = document.body.getAttribute('data-page')
+  var inr = function (n) { return Number(n).toLocaleString('en-IN') }
+
+  if (page === 'home') {
+    var deals = document.getElementById('deals')
+    var value = document.getElementById('value')
+    var fee = document.getElementById('fee')
+    var dealsOut = document.getElementById('deals-out')
+    var valueOut = document.getElementById('value-out')
+    var closedOut = document.getElementById('closed-out')
+    var multiOut = document.getElementById('multi-out')
+    function calc() {
+      var d = Number(deals.value)
+      var v = Number(value.value)
+      var f = Number(fee.value)
+      dealsOut.textContent = d
+      valueOut.textContent = '₹' + inr(v)
+      var closed = d * v
+      closedOut.textContent = '₹' + inr(closed)
+      multiOut.textContent = (closed / f).toFixed(1) + '× the seat fee. Demo math — your chapter’s live averages are on each chapter card.'
+    }
+    fee.innerHTML = D.pricing.map(function (p) {
+      return '<option value="' + p.amount + '">' + p.tier + ' · ' + p.fee + '</option>'
+    }).join('')
+    ;[deals, value, fee].forEach(function (el) { el.addEventListener('input', calc) })
+    calc()
+    document.getElementById('ticker').innerHTML = D.stories.concat(D.stories).map(function (s) {
+      return '<span class="ticker-item"><b>' + s.name + '</b> · ' + s.role + ', ' + s.city + ' — “' + s.quote.slice(0, 72) + '…”</span>'
+    }).join('')
+  }
+
+  if (page === 'find') {
+    var state = { step: 0, name: '', email: '', phone: '', profession: '', city: '', mode: 'All', picked: null, done: false }
+    var root = document.getElementById('wizard')
+    var modes = ['All', 'In person', 'Hybrid', 'Online']
+    function list() {
+      return D.chapters.filter(function (c) {
+        var modeOk = state.mode === 'All' || c.mode === state.mode
+        var cityOk = !state.city || c.city.toLowerCase().indexOf(state.city.toLowerCase()) !== -1 || c.region.toLowerCase().indexOf(state.city.toLowerCase()) !== -1
+        var profOk = !state.profession || c.open.indexOf(state.profession) !== -1 || c.taken.indexOf(state.profession) !== -1
+        return modeOk && cityOk && profOk
+      })
+    }
+    function bars() {
+      return '<div class="wizard-progress">' + [0, 1, 2, 3, 4].map(function (i) {
+        return '<span class="' + (i <= state.step ? 'on' : '') + '"></span>'
+      }).join('') + '</div>'
+    }
+    function render() {
+      if (state.done && state.picked) {
+        var p = state.picked
+        var seat = ''
+        if (state.profession) {
+          seat = '<p style="margin-top:12px">Your craft: <b>' + state.profession + '</b> — ' + (p.open.indexOf(state.profession) !== -1 ? 'seat is open.' : 'seat is currently taken. Visit anyway or try a nearby room.') + '</p>'
+        }
+        root.innerHTML =
+          '<div class="kicker">You’re on the list</div>' +
+          '<h1>See you at ' + p.name + '.</h1>' +
+          '<p>' + state.name + ', a chapter host will mail ' + state.email + ' with the ' + p.day + ' ' + p.time + ' details. Add it to your calendar — first two visits are free.</p>' +
+          '<div class="card" style="margin-top:24px"><h3>' + p.name + '</h3><p class="meta">' + p.mode + ' · ' + p.day + ' ' + p.time + ' · ' + p.venue + '</p>' + seat + '</div>'
+        return
+      }
+      var title = state.step < 4 ? 'Let’s get you in the room, ' + (state.name || 'friend') + '.' : 'Pick a chapter.'
+      var body = bars()
+      if (state.step === 0) {
+        body += '<form class="form" id="wform"><label>What’s your name?<input name="name" value="' + state.name + '" placeholder="e.g. Ananya Rao" required></label><button class="btn btn-ink" type="submit">Continue</button></form>'
+      } else if (state.step === 1) {
+        body += '<form class="form" id="wform"><label>Where should we send the invite?<input type="email" name="email" value="' + state.email + '" placeholder="you@studio.com" required></label><p class="person">People trust a named introduction 7× more than an ad. That’s the whole product.</p><div style="display:flex;gap:10px"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn btn-ink" type="submit">Continue</button></div></form>'
+      } else if (state.step === 2) {
+        body += '<form class="form" id="wform"><label>Phone (optional)<input name="phone" value="' + state.phone + '" placeholder="+91 98xxx xxxxx"></label><div style="display:flex;gap:10px"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn btn-ink" type="submit">Continue</button></div></form>'
+      } else if (state.step === 3) {
+        body += '<form class="form" id="wform"><label>What do you do?<select name="profession" required><option value="">Select your craft</option>' +
+          D.professions.map(function (p) { return '<option' + (state.profession === p ? ' selected' : '') + '>' + p + '</option>' }).join('') +
+          '</select></label><label>City or region<input name="city" value="' + state.city + '" placeholder="Mumbai, Bengaluru, Pan-India…"></label><div style="display:flex;gap:10px"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn btn-ink" type="submit">Show chapters</button></div></form>'
+      } else {
+        var cards = list().map(function (c) {
+          var open = state.profession && c.open.indexOf(state.profession) !== -1
+          var taken = state.profession && c.taken.indexOf(state.profession) !== -1
+          var note = ''
+          if (open) note = '<p style="font-size:14px"><b>' + state.profession + ' seat is open.</b></p>'
+          if (taken) note = '<p style="font-size:14px"><b>' + state.profession + ' is taken here — visit as a guest or pick another room.</b></p>'
+          return '<article class="card">' +
+            '<div class="chapter-top"><div><h3>' + c.name + '</h3><p class="meta">' + c.city + ' · ' + c.day + ' ' + c.time + ' · ' + c.venue + '</p></div>' +
+            '<span class="badge' + (c.mode === 'Online' ? ' gold' : '') + '">' + c.mode + '</span></div>' +
+            '<p class="meta">' + c.members + ' members · ' + c.openSeats + ' open seats · avg deal ' + c.avgDeal + ' · closed ' + c.closedYtd + '</p>' +
+            note +
+            '<div class="seats">' + c.open.slice(0, 6).map(function (s) { return '<span class="chip open">' + s + '</span>' }).join('') + '</div>' +
+            '<button class="btn btn-ink" type="button" data-pick="' + c.id + '">Request this invite</button></article>'
+        }).join('') || '<p>No chapters match. Try another city or mode.</p>'
+        body += '<div class="filters">' + modes.map(function (m) {
+          return '<button type="button" class="filter' + (state.mode === m ? ' on' : '') + '" data-mode="' + m + '">' + m + '</button>'
+        }).join('') + '</div><div class="stack">' + cards + '</div><button class="btn btn-ghost" style="margin-top:16px" type="button" data-back>Back</button>'
+      }
+      root.innerHTML = '<div class="kicker">Find a chapter</div><h1>' + title + '</h1><p>A short wizard. Then live chapter cards — open seats, average deal, next meeting.</p>' + body
+    }
+    root.addEventListener('submit', function (e) {
+      e.preventDefault()
+      var fd = new FormData(e.target)
+      ;['name', 'email', 'phone', 'profession', 'city'].forEach(function (k) {
+        if (fd.has(k)) state[k] = String(fd.get(k) || '')
+      })
+      if (state.step === 0 && !state.name.trim()) return
+      if (state.step === 1 && state.email.indexOf('@') === -1) return
+      state.step = Math.min(state.step + 1, 4)
+      render()
+    })
+    root.addEventListener('click', function (e) {
+      if (e.target.closest('[data-back]')) {
+        state.step = Math.max(state.step - 1, 0)
+        render()
+        return
+      }
+      var mode = e.target.closest('[data-mode]')
+      if (mode) {
+        state.mode = mode.getAttribute('data-mode')
+        render()
+        return
+      }
+      var pick = e.target.closest('[data-pick]')
+      if (pick) {
+        state.picked = D.chapters.find(function (c) { return c.id === pick.getAttribute('data-pick') })
+        state.done = true
+        render()
+      }
+    })
+    render()
+  }
+
+  if (page === 'stories') {
+    var role = 'All'
+    var country = 'All'
+    var roles = ['All'].concat(Array.from(new Set(D.stories.map(function (s) { return s.role }))))
+    var countries = ['All'].concat(Array.from(new Set(D.stories.map(function (s) { return s.country }))))
+    var roleBar = document.getElementById('roles')
+    var countryBar = document.getElementById('countries')
+    var grid = document.getElementById('story-grid')
+    function draw() {
+      roleBar.innerHTML = roles.map(function (r) {
+        return '<button type="button" class="filter' + (role === r ? ' on' : '') + '" data-role="' + r + '">' + r + '</button>'
+      }).join('')
+      countryBar.innerHTML = countries.map(function (c) {
+        return '<button type="button" class="filter' + (country === c ? ' on' : '') + '" data-country="' + c + '">' + c + '</button>'
+      }).join('')
+      grid.innerHTML = D.stories.filter(function (s) {
+        return (role === 'All' || s.role === role) && (country === 'All' || s.country === country)
+      }).map(function (s) {
+        return '<article class="card"><div class="badge">' + s.metric + '</div><p class="quote">“' + s.quote + '”</p><h3>' + s.name + '</h3><p class="person">' + s.role + ' · ' + s.company + ' · ' + s.city + ', ' + s.country + '</p></article>'
+      }).join('')
+    }
+    roleBar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-role]')
+      if (!b) return
+      role = b.getAttribute('data-role')
+      draw()
+    })
+    countryBar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-country]')
+      if (!b) return
+      country = b.getAttribute('data-country')
+      draw()
+    })
+    draw()
+  }
+
+  if (page === 'community') {
+    var region = 'All'
+    var regions = ['All', 'Asia', 'Europe', 'Middle East', 'Africa', 'Americas']
+    var bar = document.getElementById('regions')
+    var grid = document.getElementById('city-grid')
+    function draw() {
+      bar.innerHTML = regions.map(function (r) {
+        return '<button type="button" class="filter' + (region === r ? ' on' : '') + '" data-region="' + r + '">' + r + '</button>'
+      }).join('')
+      grid.innerHTML = D.countries.filter(function (c) {
+        return region === 'All' || c.region === region
+      }).map(function (c) {
+        return '<article class="card"><div class="kicker">' + c.region + '</div><h3 style="margin:8px 0 14px">' + c.name + '</h3><div class="meta"><span>' + c.members + ' members</span><span>' + c.referrals + ' referrals</span><span>' + c.business + ' closed</span></div></article>'
+      }).join('')
+    }
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-region]')
+      if (!b) return
+      region = b.getAttribute('data-region')
+      draw()
+    })
+    draw()
+  }
+
+  if (page === 'start') {
+    var form = document.getElementById('start-form')
+    var sel = form.querySelector('[name="craft"]')
+    sel.innerHTML = '<option value="">Select</option>' + D.professions.map(function (p) { return '<option>' + p + '</option>' }).join('')
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+      var fd = new FormData(form)
+      document.getElementById('start-card').innerHTML = '<div class="ok">Thanks ' + fd.get('name') + '. A city lead will write to ' + fd.get('email') + ' within two working days.</div>'
+    })
+  }
+
+  if (page === 'contact') {
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault()
+      document.getElementById('contact-card').innerHTML = '<div class="ok">Message noted. In production this would route to hello@nexora.network.</div>'
+    })
+  }
+
+})()
+
+</script>
+</body>
+</html>
